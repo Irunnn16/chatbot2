@@ -22,7 +22,7 @@ class ArticleController extends Controller
         $this->pass("index article");
         
         $data = Article::query()
-            //->with(['media'])
+            ->with(['media', 'user'])
             ->when($request->name, function($q, $v){
                 $q->where('name', $v);
             });
@@ -47,6 +47,7 @@ class ArticleController extends Controller
         $this->pass("create article");
 
         $data = $request->validated();
+        $data['user_id'] = $this->user->id;
         Article::create($data);
     }
 

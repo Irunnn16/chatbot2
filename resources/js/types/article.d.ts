@@ -1,5 +1,5 @@
-import { User } from "./user";
-
+import { Media } from '.';
+import { User } from './user';
 
 export type Article = {
   id: number;
@@ -8,6 +8,7 @@ export type Article = {
   title: string;
   kategori: string;
   content: string;
+  media: Media[];
   created_at: string;
   updated_at: string;
 };

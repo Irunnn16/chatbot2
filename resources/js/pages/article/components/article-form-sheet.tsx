@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { em, capitalizeWords } from '@/lib/utils';
+import { capitalizeWords, em } from '@/lib/utils';
 import { FormPurpose } from '@/types';
 import { Article } from '@/types/article';
 import { useForm } from '@inertiajs/react';
@@ -21,7 +21,10 @@ const ArticleFormSheet: FC<Props> = ({ children, article, purpose }) => {
   const [open, setOpen] = useState(false);
 
   const { data, setData, put, post, reset, processing } = useForm({
-    name: article?.name ?? '',
+    title: article?.title ?? '',
+    kategori: article?.kategori ?? '',
+    content: article?.content ?? '',
+
   });
 
   const handleSubmit = () => {
@@ -64,7 +67,13 @@ const ArticleFormSheet: FC<Props> = ({ children, article, purpose }) => {
             }}
           >
             <FormControl label="Nama article">
-              <Input type="text" placeholder="Name" value={data.name} onChange={(e) => setData('name', e.target.value)} />
+              <Input type="text" placeholder="Name" value={data.title} onChange={(e) => setData('title', e.target.value)} />
+            </FormControl>
+            <FormControl label="Nama Kategori">
+              <Input type="text" placeholder="Kategori" value={data.kategori} onChange={(e) => setData('kategori', e.target.value)} />
+            </FormControl>
+            <FormControl label="Nama Content" className=''>
+              <Input type="text" placeholder="Content" value={data.content} onChange={(e) => setData('content', e.target.value)} />
             </FormControl>
           </form>
         </ScrollArea>

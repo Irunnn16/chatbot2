@@ -8,13 +8,13 @@ import AppLayout from '@/layouts/app-layout';
 import { SharedData } from '@/types';
 import { Article } from '@/types/article';
 import { Link, usePage } from '@inertiajs/react';
-import { Edit, Filter, Folder, FolderArchive, Image, Plus, Trash2 } from 'lucide-react';
+import { Edit, Filter, Folder, Image, Plus, Trash2 } from 'lucide-react';
 import { FC, useState } from 'react';
+import ArticleBulkDeleteDialog from './components/article-bulk-delete-dialog';
+import ArticleBulkEditSheet from './components/article-bulk-edit-sheet';
 import ArticleDeleteDialog from './components/article-delete-dialog';
 import ArticleFilterSheet from './components/article-filter-sheet';
 import ArticleFormSheet from './components/article-form-sheet';
-import ArticleBulkEditSheet from './components/article-bulk-edit-sheet';
-import ArticleBulkDeleteDialog from './components/article-bulk-delete-dialog';
 import ArticleUploadMediaSheet from './components/article-upload-sheet';
 
 type Props = {
@@ -42,7 +42,6 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
               </Button>
             </ArticleFormSheet>
           )}
-          
         </>
       }
     >
@@ -94,7 +93,10 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
                 </Label>
               </Button>
             </TableHead>
-            <TableHead>Name</TableHead>
+            <TableHead>Title</TableHead>
+            <TableHead>Kategori</TableHead>
+            <TableHead>Content</TableHead>
+            <TableHead>Creator</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -119,7 +121,12 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
                     </Label>
                   </Button>
                 </TableCell>
-                <TableCell>{ article.name }</TableCell>
+                <TableCell>{article.title}</TableCell>
+                <TableCell>{article.kategori}</TableCell>
+                <TableCell>
+                  <div className="line-clamp-1 max-w-96 truncate">{article.content}</div>
+                </TableCell>
+                <TableCell>{article.user?.name || 'N/A'}</TableCell>
                 <TableCell>
                   {permissions?.canShow && (
                     <Button variant={'ghost'} size={'icon'}>
@@ -131,10 +138,10 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
                   {permissions?.canUpdate && (
                     <>
                       <ArticleUploadMediaSheet article={article}>
-    <Button variant={'ghost'} size={'icon'}>
-        <Image />
-    </Button>
-</ArticleUploadMediaSheet>
+                        <Button variant={'ghost'} size={'icon'}>
+                          <Image />
+                        </Button>
+                      </ArticleUploadMediaSheet>
                       <ArticleFormSheet purpose="edit" article={article}>
                         <Button variant={'ghost'} size={'icon'}>
                           <Edit />
