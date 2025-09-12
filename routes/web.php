@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PropspectController;
+use App\Http\Controllers\ProspectController;
+
 
 
 
@@ -34,6 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('article/bulk', [ArticleController::class, 'bulkDelete'])->name('article.bulk.destroy');
     Route::post('article/{article}/upload-media', [ArticleController::class, 'uploadMedia'])->name('article.upload-media');
     Route::apiResource('article', ArticleController::class);
+    
+    Route::put('prospect/bulk', [ProspectController::class, 'bulkUpdate'])->name('prospect.bulk.update');
+    Route::delete('prospect/bulk', [ProspectController::class, 'bulkDelete'])->name('prospect.bulk.destroy');
+    Route::apiResource('prospect', ProspectController::class);
     
     
 });

@@ -4,7 +4,7 @@ import { NavUser } from '@/components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
-import { BookOpen, Database, KeySquare, LayoutGrid, User, Users } from 'lucide-react';
+import { BookCheckIcon, BookOpen, Database, KeySquare, LayoutGrid, User, Users } from 'lucide-react';
 import AppLogo from './app-logo';
 import { Worker } from 'cluster';
 
@@ -22,11 +22,11 @@ const mainNavItems: NavItem[] = [
   {
     title: 'Article',
     href: route('article.index'),
-    icon: BookOpen,
+    icon: BookCheckIcon,
   },
   {
-    title: 'Propspect',
-    href: route('propspect.index'),
+    title: 'Prospect',
+    href: route('prospect.index'),
     icon: User,
   },
 ];
