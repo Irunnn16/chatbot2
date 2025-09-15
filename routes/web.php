@@ -11,6 +11,8 @@ use Inertia\Inertia;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PropspectController;
 use App\Http\Controllers\ProspectController;
+use App\Http\Controllers\CategoryController;
+
 
 
 
@@ -40,6 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('prospect/bulk', [ProspectController::class, 'bulkUpdate'])->name('prospect.bulk.update');
     Route::delete('prospect/bulk', [ProspectController::class, 'bulkDelete'])->name('prospect.bulk.destroy');
     Route::apiResource('prospect', ProspectController::class);
+    Route::put('category/bulk', [CategoryController::class, 'bulkUpdate'])->name('category.bulk.update');
+    Route::delete('category/bulk', [CategoryController::class, 'bulkDelete'])->name('category.bulk.destroy');
+    Route::apiResource('category', CategoryController::class);
     
     
 });
