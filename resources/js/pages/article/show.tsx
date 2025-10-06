@@ -12,10 +12,11 @@ const ShowArticle: FC<Props> = ({ article }) => {
     <AppLayout title="Detail Article" description="Detail article">
       <Card>
         <CardHeader>
-          <CardTitle>{ article.name }</CardTitle>
+          <CardTitle>{ article.title }</CardTitle>
           <CardDescription>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, quo impedit cupiditate voluptas culpa magnam itaque distinctio at ullam,
-            beatae perferendis doloremque facilis mollitia, quod corporis. Autem voluptatum ipsum placeat.
+            Kategori: { article.kategori } <br />
+            Content:
+            { article.content }
           </CardDescription>
         </CardHeader>
       </Card>

@@ -27,6 +27,9 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
+        'phone_number',
+        'address',
+        'roles',
     ];
 
     /**
@@ -64,5 +67,10 @@ class User extends Authenticatable implements HasMedia
         $this->addMediaConversion('preview')
             ->fit(Fit::Contain, 300, 300)
             ->nonQueued();
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Logs::class);
     }
 }

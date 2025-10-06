@@ -21,7 +21,46 @@ class PermissionSeeder extends Seeder
             "dashboard" => [
                 "profile" => ["*"],
                 "documentation" => ["*"]
-            ]
+    ],
+            "article" => [
+                "view article" => ["*"],
+                "create article" => ["superadmin", "admin"],
+                "edit article" => ["superadmin", "admin"],
+                "delete article" => ["superadmin", "admin"],
+            ],
+            "prospect" => [
+                "view prospect" => ["*"],
+                "create prospect" => ["superadmin", "admin"],
+                "edit prospect" => ["superadmin", "admin"],
+                "delete prospect" => ["superadmin", "admin"],
+            ],
+            "user" => [
+                "view user" => ["superadmin", "admin"],
+                "create user" => ["superadmin", "admin"],        
+                "edit user" => ["superadmin", "admin"],
+                "delete user" => ["superadmin", "admin"],
+            ],     
+            
+            "category" => [
+                "menu category" => ["superadmin", "admin"],
+                "view category" => ["superadmin", "admin"],
+                "create category" => ["superadmin", "admin"],
+                "edit category" => ["superadmin", "admin"],
+                "delete category" => ["superadmin", "admin"],
+            ],
+            "logs" => [
+                "menu logs" => ["superadmin", "admin"],
+                "view logs" => ["superadmin", "admin"],
+                "delete logs" => ["superadmin", "admin"],
+            ],
+
+            "role" => [
+                "menu role" => ["superadmin"],
+                "view role" => ["superadmin"],
+                "create role" => ["superadmin" ],        
+                "edit role" => ["superadmin"],
+                "delete role" => ["superadmin"],
+    ],
         ];
 
         foreach ($permissionGroups as $group => $permissions) {

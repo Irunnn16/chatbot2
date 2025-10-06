@@ -93,7 +93,7 @@ const CategoryList: FC<Props> = ({ categories, query }) => {
                 </Label>
               </Button>
             </TableHead>
-            <TableHead>Kategori</TableHead>
+            <TableHead>Name</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>

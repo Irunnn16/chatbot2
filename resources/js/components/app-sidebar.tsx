@@ -13,26 +13,31 @@ const mainNavItems: NavItem[] = [
     href: route('dashboard'),
     icon: LayoutGrid,
   },
-  {
-    title: 'Documentation',
-    href: route('documentation'),
-    icon: BookOpen,
-  },
+  // {
+  //   title: 'Documentation',
+  //   href: route('documentation'),
+  //   icon: BookOpen,
+  // },
   {
     title: 'Article',
     href: route('article.index'),
     icon: BookCheckIcon,
   },
-  {
-    title: 'Prospect',
-    href: route('prospect.index'),
-    icon: User,
-  },
-  {
-    title: 'Kategori',
-    href: route('category.index'),
-    icon: Folder,
-  },
+  // {
+  //   title: 'Prospect',
+  //   href: route('prospect.index'),
+  //   icon: User,
+  // },
+  // {
+  //   title: 'Kategori',
+  //   href: route('category.index'),
+  //   icon: Folder,
+  // },
+  // {
+  //   title: 'Logs',
+  //   href: route('logs.index'),
+  //   icon: Database,
+  // },
 ];
 
 const footerNavItems: NavItem[] = [];
@@ -53,9 +58,34 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+      
 
       <SidebarContent className="space-y-4">
         <NavMain items={mainNavItems} label="Dashboard" />
+        <NavMain
+          items={[
+            {
+              title: 'Prospect',
+              href: route('prospect.index'),
+              icon: User,
+              available: menus.prospect,
+            },
+            {
+              title: 'Kategori',
+              href: route('category.index'),
+              icon: Folder,
+              available: menus.category,
+            },
+            {
+              title: 'Logs',
+              href: route('logs.index'),
+              icon: Database,
+              available: menus.logs,
+            },
+          ]}
+          label="Data"
+        />
+        
         <NavMain
           items={[
             {

@@ -119,4 +119,6 @@ class UserController extends Controller
         $user = User::onlyTrashed()->find($user);
         $user->forceDelete();
     }
+
+    
 }

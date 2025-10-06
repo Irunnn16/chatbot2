@@ -43,7 +43,7 @@ return [
     |
     */
 
-	'with-landingpage' => env('WITH_LANDINGPAGE', true),
+	'with-landingpage' => env('WITH_LANDINGPAGE', false),
 
     /*
     |--------------------------------------------------------------------------

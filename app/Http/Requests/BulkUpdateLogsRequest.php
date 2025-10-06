@@ -4,10 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUserRequest extends FormRequest
+class BulkUpdateLogsRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the logs is authorized to make this request.
      */
     public function authorize(): bool
     {
@@ -22,13 +22,8 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
-            'phone_number' => 'nullable|string',
-            'address' => 'nullable|string',
-            'roles' => 'nullable|array',
-            'roles.*' => 'exists:roles,name',
+            'logs_ids' => 'required|array',
+            'logs_ids.*' => 'exists:logs,id',
         ];
     }
 }

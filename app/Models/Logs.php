@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 
 
-class Category extends Model 
+class Logs extends Model 
 {
     use HasFactory;
     
     
 
-    //protected $table = 'categories';
+    //protected $table = 'logs';
 
     /*
     protected $fillable = [
-        'name'
+        'user_id',
+        'category_id',
+        'question'
     ];
     */
 
@@ -26,10 +28,15 @@ class Category extends Model
         'created_at',
         'updated_at',
     ];
-
-    public function logs()
+    
+    public function user()
     {
-        return $this->hasMany(Logs::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
     
 }

@@ -40,6 +40,8 @@ export interface User {
   email: string;
   avatar?: string;
   roles?: string[];
+  phone_number: string | null;
+  address: string | null;
   email_verified_at: string | null;
   created_at: string;
   updated_at: string;

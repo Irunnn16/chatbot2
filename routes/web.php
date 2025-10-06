@@ -12,6 +12,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PropspectController;
 use App\Http\Controllers\ProspectController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LogsController;
+
 
 
 
@@ -45,6 +47,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('category/bulk', [CategoryController::class, 'bulkUpdate'])->name('category.bulk.update');
     Route::delete('category/bulk', [CategoryController::class, 'bulkDelete'])->name('category.bulk.destroy');
     Route::apiResource('category', CategoryController::class);
+    Route::put('logs/bulk', [LogsController::class, 'bulkUpdate'])->name('logs.bulk.update');
+    Route::delete('logs/bulk', [LogsController::class, 'bulkDelete'])->name('logs.bulk.destroy');
+    Route::apiResource('logs', LogsController::class);
     
     
 });

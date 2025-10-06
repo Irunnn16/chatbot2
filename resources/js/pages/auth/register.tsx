@@ -33,6 +33,17 @@ export default function Register() {
                 <Input id="email" type="email" required tabIndex={2} autoComplete="email" name="email" placeholder="email@example.com" />
                 <InputError message={errors.email} />
               </div>
+              <div className="grid gap-2">
+                <Label htmlFor="phone_number">Nomor Telepon</Label>
+                <Input id="phone_number" type="tel" required tabIndex={2} autoComplete="tel" name="phone_number" placeholder="(123) 456-7890" />
+                <InputError message={errors.phone_number} />
+              </div>
+
+              <div className="grid gap-2">
+                <label htmlFor="address">Sekolah</label>
+                <Input id="address" type="text" required tabIndex={2} autoComplete="organization" name="address" placeholder="School name" />
+                <InputError message={errors.address} />
+              </div>
 
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>

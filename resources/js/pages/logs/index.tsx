@@ -6,23 +6,23 @@ import { Label } from '@/components/ui/label';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { SharedData } from '@/types';
-import { Article } from '@/types/article';
+import { Logs } from '@/types/logs';
 import { Link, usePage } from '@inertiajs/react';
-import { Edit, Filter, Folder, Image, Plus, Trash2 } from 'lucide-react';
+import { Edit, Filter, Folder, FolderArchive, Image, Plus, Trash2 } from 'lucide-react';
 import { FC, useState } from 'react';
-import ArticleBulkDeleteDialog from './components/article-bulk-delete-dialog';
-import ArticleBulkEditSheet from './components/article-bulk-edit-sheet';
-import ArticleDeleteDialog from './components/article-delete-dialog';
-import ArticleFilterSheet from './components/article-filter-sheet';
-import ArticleFormSheet from './components/article-form-sheet';
-import ArticleUploadMediaSheet from './components/article-upload-sheet';
+import LogsDeleteDialog from './components/logs-delete-dialog';
+import LogsFilterSheet from './components/logs-filter-sheet';
+import LogsFormSheet from './components/logs-form-sheet';
+import LogsBulkEditSheet from './components/logs-bulk-edit-sheet';
+import LogsBulkDeleteDialog from './components/logs-bulk-delete-dialog';
 
 type Props = {
-  articles: Article[];
+  logs: Logs[];
   query: { [key: string]: string };
+  categories: { id: number; name: string }[];
 };
 
-const ArticleList: FC<Props> = ({ articles, query }) => {
+const LogsList: FC<Props> = ({ logs, query, categories }) => {
   const [ids, setIds] = useState<number[]>([]);
   const [cari, setCari] = useState('');
 
@@ -30,24 +30,25 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
 
   return (
     <AppLayout
-      title="Articles"
-      description="Manage your articles"
+      title="Logss"
+      description="Manage your logs"
       actions={
         <>
           {permissions?.canAdd && (
-            <ArticleFormSheet purpose="create">
+            <LogsFormSheet purpose="create">
               <Button>
                 <Plus />
-                Create new article
+                Create new logs
               </Button>
-            </ArticleFormSheet>
+            </LogsFormSheet>
           )}
+          
         </>
       }
     >
       <div className="flex gap-2">
-        <Input placeholder="Search articles..." value={cari} onChange={(e) => setCari(e.target.value)} />
-        <ArticleFilterSheet query={query}>
+        <Input placeholder="Search logs..." value={cari} onChange={(e) => setCari(e.target.value)} />
+        <LogsFilterSheet query={query}>
           <Button>
             <Filter />
             Filter data
@@ -55,22 +56,22 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
               <Badge variant="secondary">{Object.values(query).filter((val) => val && val !== '').length}</Badge>
             )}
           </Button>
-        </ArticleFilterSheet>
+        </LogsFilterSheet>
         {ids.length > 0 && (
           <>
             <Button variant={'ghost'} disabled>
               {ids.length} item selected
             </Button>
-            <ArticleBulkEditSheet articleIds={ids}>
+            <LogsBulkEditSheet logsIds={ids}>
               <Button>
                 <Edit /> Edit selected
               </Button>
-            </ArticleBulkEditSheet>
-            <ArticleBulkDeleteDialog articleIds={ids}>
+            </LogsBulkEditSheet>
+            <LogsBulkDeleteDialog logsIds={ids}>
               <Button variant={'destructive'}>
                 <Trash2 /> Delete selected
               </Button>
-            </ArticleBulkDeleteDialog>
+            </LogsBulkDeleteDialog>
           </>
         )}
       </div>
@@ -81,10 +82,10 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
               <Button variant={'ghost'} size={'icon'} asChild>
                 <Label>
                   <Checkbox
-                    checked={ids.length === articles.length}
+                    checked={ids.length === logs.length}
                     onCheckedChange={(checked) => {
                       if (checked) {
-                        setIds(articles.map((article) => article.id));
+                        setIds(logs.map((logs) => logs.id));
                       } else {
                         setIds([]);
                       }
@@ -93,70 +94,62 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
                 </Label>
               </Button>
             </TableHead>
-            <TableHead>Title</TableHead>
+            <TableHead>Aplikan</TableHead>
             <TableHead>Kategori</TableHead>
-            <TableHead>Content</TableHead>
-            <TableHead>Creator</TableHead>
+            <TableHead>Question</TableHead>
             <TableHead>Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {articles
-            .filter((article) => JSON.stringify(article).toLowerCase().includes(cari.toLowerCase()))
-            .map((article) => (
-              <TableRow key={article.id}>
+          {logs
+            .filter((logs) => JSON.stringify(logs).toLowerCase().includes(cari.toLowerCase()))
+            .map((logs) => (
+              <TableRow key={logs.id}>
                 <TableCell>
                   <Button variant={'ghost'} size={'icon'} asChild>
                     <Label>
                       <Checkbox
-                        checked={ids.includes(article.id)}
+                        checked={ids.includes(logs.id)}
                         onCheckedChange={(checked) => {
                           if (checked) {
-                            setIds([...ids, article.id]);
+                            setIds([...ids, logs.id]);
                           } else {
-                            setIds(ids.filter((id) => id !== article.id));
+                            setIds(ids.filter((id) => id !== logs.id));
                           }
                         }}
                       />
                     </Label>
                   </Button>
                 </TableCell>
+                <TableCell>{ logs.user_id }</TableCell>
+                <TableCell>{ logs.category?.name || 'N/A' }</TableCell>
                 <TableCell>
-                  <div className="line-clamp-4 max-w-50 truncate">{article.title}</div>
-                  </TableCell>
-                <TableCell>{article.kategori}</TableCell>
-                <TableCell>
-                  <div className="line-clamp-1 max-w-60 truncate">{article.content}</div>
+                  <div className="line-clamp-1 max-w-96 truncate">{ logs.question }</div>
                 </TableCell>
-                <TableCell>{article.user?.name || 'N/A'}</TableCell>
                 <TableCell>
                   {permissions?.canShow && (
                     <Button variant={'ghost'} size={'icon'}>
-                      <Link href={route('article.show', article.id)}>
+                      <Link href={route('logs.show', logs.id)}>
                         <Folder />
                       </Link>
                     </Button>
                   )}
                   {permissions?.canUpdate && (
                     <>
-                      <ArticleUploadMediaSheet article={article}>
-                        <Button variant={'ghost'} size={'icon'}>
-                          <Image />
-                        </Button>
-                      </ArticleUploadMediaSheet>
-                      <ArticleFormSheet purpose="edit" article={article}>
+                      
+                      <LogsFormSheet purpose="edit" logs={logs}>
                         <Button variant={'ghost'} size={'icon'}>
                           <Edit />
                         </Button>
-                      </ArticleFormSheet>
+                      </LogsFormSheet>
                     </>
                   )}
                   {permissions?.canDelete && (
-                    <ArticleDeleteDialog article={article}>
+                    <LogsDeleteDialog logs={logs}>
                       <Button variant={'ghost'} size={'icon'}>
                         <Trash2 />
                       </Button>
-                    </ArticleDeleteDialog>
+                    </LogsDeleteDialog>
                   )}
                 </TableCell>
               </TableRow>
@@ -167,4 +160,4 @@ const ArticleList: FC<Props> = ({ articles, query }) => {
   );
 };
 
-export default ArticleList;
+export default LogsList;

@@ -12,10 +12,23 @@ class ProspectFactory extends Factory
     public function definition(): array
     {
         $jurusan = ['Teknik Informatika', 'Sistem Informasi', 'Desain Komunikasi Visual', 'Manajemen', 'Akuntansi'];
+        $kode = ['TI', 'SI', 'DKV', 'MN', 'AK'];
+        $prospek_kerja = [
+            'Software Developer',
+            'System Analyst',
+            'UI/UX Designer',
+            'Project Manager',
+            'Financial Analyst',
+            'Data Scientist',
+            'Network Administrator',
+            'Digital Marketer',
+            'Business Consultant',
+            'Cybersecurity Specialist'
+        ];
         return [
             'jurusan' => fake()->randomElement($jurusan),
-            'kode' => fake()->word(),
-            'prospek_kerja' => fake()->paragraph(),
+            'kode' => fake()->randomElement($kode),
+            'prospek_kerja' => fake()->randomElement($prospek_kerja),
         ];
     }
 }
